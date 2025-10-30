@@ -1,14 +1,13 @@
 # kube-hetzner-argocd-playground
 
-This project allows to create a k8s cluster on-demand with only basic GitOps services running on it, such as ArgoCD and Gitea. Any other tools/services should be added using the GitOps approach.
+This project allows to create a k8s cluster on-demand with only basic GitOps services running on it, such as ArgoCD and Gitea. Any other tools/services could be added using the GitOps approach. You can use it as a template for your own cluster.
 
 ## Prerequisites
 - Hetzner Cloud API token
 - Cloudflare API token
-- Domain name configured in Cloudflare
+- Domain name in Cloudflare for your cluster
 
-## Creating new cluster
-To create new cluster:
+## To create new cluster
 1. Use `play` folder, or create new one, using it as a template
 2. Create new snapshot of MicroOS image by running 
 ```bash
@@ -22,15 +21,15 @@ packer build hcloud-microos-snapshots.pkr.hcl
 6. Wait for k3s to be ready and DNS to be propagated and run `terraform apply` to configure Gitea, ArgoCD, Dex
 
 
-### Accessing cluster
-All credentials for services can be found in `play_credentials.yaml` file. Kubeconfig is outputed as `play_kubeconfig.yaml` file.
+## To access cluster
+All credentials and urls for services can be found in `play_credentials.yaml` file, which is created after `terraform apply` command. Kubeconfig is outputed as `play_kubeconfig.yaml` file.
 
 In order to fast and easy access you can export it to your shell:
 ```bash
 export KUBECONFIG=$(pwd)/play_kubeconfig.yaml
 ```
 
-### Example helm chart
+## First Helm chart deployment
 As you first helm chart it's better to use something simple, like [hello world](https://artifacthub.io/packages/helm/cloudecho/hello) app. Commit following files to your `gitops` repository:
  
 `hello/Chart.yaml`
@@ -54,7 +53,7 @@ hello:
 
 ## Architecture
 
-Terraform creates resources on Hetzner, which are used to run [k3s](https://docs.k3s.io/). Then k3s is used to run ArgoCD, Gitea and Dex. During apply Terraform creates in Gitea new repository named `gitops`, which is monitored by ArgoCD, also it creates webhook in Gitea to trigger ArgoCD sync on push and upload [public key](./play/play_gitea.pem) to Gitea to allow ArgoCD and **you** to access it. Dex is configured to use Gitea as OAuth2 provider.
+Terraform creates resources on Hetzner, which are used to run [k3s](https://docs.k3s.io/). Then k3s is used to run ArgoCD, Gitea and Dex. During apply Terraform creates in Gitea new repository named `gitops`, which is monitored by ArgoCD, also it creates webhook in Gitea to trigger ArgoCD sync on push and upload public key to Gitea to allow ArgoCD and **you** to access it. Dex is configured to use Gitea as OAuth2 provider.
 
 ![](./architecture.drawio.png)
 
@@ -66,8 +65,10 @@ Diagram of Hetzner Cloud resources created by Terraform
 
 _diagram can be edited using [draw.io](https://app.diagrams.net/)_
 
-## Maintainance
+### Maintainance
 TL;DR; Use https://github.com/kube-hetzner/terraform-hcloud-kube-hetzner
 
-### Packer
-On first run new image is created from file `hcloud-microos-snapshots.pkr.hcl` and then it is used to create new VMs. Usually it is enough to run `packer build hcloud-microos-snapshots.pkr.hcl` to create new image.
+
+## Attributions
+
+Thanks to [kube-hetzner](https://github.com/kube-hetzner/terraform-hcloud-kube-hetzner) for inspiration and for the module itself.
