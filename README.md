@@ -53,22 +53,34 @@ hello:
 
 ## Architecture
 
-Terraform creates resources on Hetzner, which are used to run [k3s](https://docs.k3s.io/). Then k3s is used to run ArgoCD, Gitea and Dex. During apply Terraform creates in Gitea new repository named `gitops`, which is monitored by ArgoCD, also it creates webhook in Gitea to trigger ArgoCD sync on push and upload public key to Gitea to allow ArgoCD and **you** to access it. Dex is configured to use Gitea as OAuth2 provider.
+Terraform creates resources on Hetzner, which are used to run [k3s](https://docs.k3s.io/). Then k3s is used to deploy [ArgoCD](https://argo-cd.readthedocs.io/en/stable/), [Gitea](https://gitea.io/) and [Dex](https://dexidp.io/). To deploy those helm charts Terraform uses [HelmChart](https://github.com/rancher/helm-controller) resource.
+
+Terraform does the following extra:
+- creates in Gitea new repository named `gitops`, which is monitored by ArgoCD
+- creates webhook in Gitea to trigger ArgoCD sync on any push to `gitops` repository
+- uploads public key to Gitea to allow ArgoCD and **you** to access it, using SSH
+- configures Dex to use Gitea as OAuth2 provider, so **you** can access ArgoCD using Gitea credentials
+
 
 ![](./architecture.drawio.png)
-
 _diagram can be edited using [draw.io](https://app.diagrams.net/)_
 
 ### Hetzner Cloud
-![](./hetzner.drawio.png)
 Diagram of Hetzner Cloud resources created by Terraform
 
+![](./hetzner.drawio.png)
 _diagram can be edited using [draw.io](https://app.diagrams.net/)_
 
 ### Maintainance
 TL;DR; Use https://github.com/kube-hetzner/terraform-hcloud-kube-hetzner
 
 
-## Attributions
+## Attributions and my comments
 
 Thanks to [kube-hetzner](https://github.com/kube-hetzner/terraform-hcloud-kube-hetzner) for inspiration and for the module itself.
+
+I think it's a great setup to start with if you want to create ready to use clsuter, but I would recommend to do those things for production:
+- do not use Gitea as a primary authentication provider, use something like [Keycloak](https://www.keycloak.org/) or [Authelia](https://www.authelia.com/)
+- do not use Gitea as gitops repository, use something like Github or Gitlab (main problem is that gitops remains in cluster which it tries to configure)
+- do it highly-available
+- do not use flannel as a CNI, I think Calico is better choice
