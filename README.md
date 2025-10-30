@@ -53,7 +53,7 @@ hello:
   replicaCount: 2
 ```
 
-![](./argocd.png)
+![](./images/argocd.png)
 
 ## Architecture
 
@@ -66,11 +66,11 @@ Terraform does the following extra:
 - configures Dex to use Gitea as OAuth2 provider, so **you** can access ArgoCD using Gitea credentials
 
 ### Diagram of Terraform resources
-![](./architecture.drawio.png)
+![](./images/architecture.drawio.png)
 _diagram can be edited using [draw.io](https://app.diagrams.net/)_
 
 ### Diagram of Hetzner Cloud resources created by Terraform
-![](./hetzner.drawio.png)
+![](./images/hetzner.drawio.png)
 _diagram can be edited using [draw.io](https://app.diagrams.net/)_
 
 ### Maintainance
