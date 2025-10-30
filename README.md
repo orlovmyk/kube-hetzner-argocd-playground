@@ -77,7 +77,7 @@ TL;DR; Use https://github.com/kube-hetzner/terraform-hcloud-kube-hetzner
 
 Thanks to [kube-hetzner](https://github.com/kube-hetzner/terraform-hcloud-kube-hetzner) for inspiration and for the module itself.
 
-I think it's a great setup to start with if you want to create ready to use clsuter, but I would recommend to do those things for production:
+I think it's a great setup to start with if you want to create ready to use cluster, but I would recommend to do those things for production:
 - do not use Gitea as a primary authentication provider, use something like [Keycloak](https://www.keycloak.org/) or [Authelia](https://www.authelia.com/)
 - do not use Gitea as gitops repository, use something like Github or Gitlab (main problem is that gitops remains in cluster which it tries to configure)
 - do it highly-available
