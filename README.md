@@ -61,13 +61,11 @@ Terraform does the following extra:
 - uploads public key to Gitea to allow ArgoCD and **you** to access it, using SSH
 - configures Dex to use Gitea as OAuth2 provider, so **you** can access ArgoCD using Gitea credentials
 
-
+### Diagram of Terraform resources
 ![](./architecture.drawio.png)
 _diagram can be edited using [draw.io](https://app.diagrams.net/)_
 
-### Hetzner Cloud
-Diagram of Hetzner Cloud resources created by Terraform
-
+### Diagram of Hetzner Cloud resources created by Terraform
 ![](./hetzner.drawio.png)
 _diagram can be edited using [draw.io](https://app.diagrams.net/)_
 
