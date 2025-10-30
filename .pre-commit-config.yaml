@@ -1,0 +1,8 @@
+# install pre-commit on your local machine: https://pre-commit.com/#install
+
+repos:
+- repo: https://github.com/antonbabenko/pre-commit-terraform
+  rev: v1.96.2 # Get the latest from: https://github.com/antonbabenko/pre-commit-terraform/releases
+  hooks:
+    - id: terraform_fmt
+    - id: terraform_validate
