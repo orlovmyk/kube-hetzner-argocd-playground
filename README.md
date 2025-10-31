@@ -73,7 +73,7 @@ _diagram can be edited using [draw.io](https://app.diagrams.net/)_
 ![](./images/hetzner.drawio.png)
 _diagram can be edited using [draw.io](https://app.diagrams.net/)_
 
-### Maintainance
+## Maintainance
 TL;DR; Use https://github.com/kube-hetzner/terraform-hcloud-kube-hetzner
 
 
