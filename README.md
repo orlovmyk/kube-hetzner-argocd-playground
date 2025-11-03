@@ -15,17 +15,16 @@ export HCLOUD_TOKEN="your_hcloud_token"
 packer init hcloud-microos-snapshots.pkr.hcl
 packer build hcloud-microos-snapshots.pkr.hcl
 ```
-3. Replace all needed values in header of [locals.tf](./play/locals.tf) file, including snapshot ID of MicroOS image
-4. Create `.env` file with credentials based on [.env.example](./play/.env.example) file
-5. Source the `.env` file to load environment variables:
+3. Create `.env` file with credentials based on [.env.example](./play/.env.example) file
+4. Source the `.env` file to load environment variables:
 ```bash
 source .env
 ```
-6. To create hetzner resources and deploy k3s on them, run couple of times if needed (it can **fail 1st time** due to CRDs not being ready):
+5. To create hetzner resources and deploy k3s on them, run couple of times if needed (it can **fail 1st time** due to CRDs not being ready):
 ```bash
 terraform apply --target=module.kube-hetzner
 ```
-7. Wait for k3s to be ready and DNS to be propagated and to configure Gitea, ArgoCD, Dex, run what's left:
+6. Wait for k3s to be ready and DNS to be propagated and to configure Gitea, ArgoCD, Dex, run what's left:
 ```bash
 terraform apply
 ```
