@@ -21,8 +21,14 @@ packer build hcloud-microos-snapshots.pkr.hcl
 ```bash
 source .env
 ```
-6. Run `terraform apply --target=module.kube-hetzner` to create hetzner resources and deploy k3s on them (it can **fail 1st time** due to CRDs not being ready), run couple of times if needed
-7. Wait for k3s to be ready and DNS to be propagated and run `terraform apply` to configure Gitea, ArgoCD, Dex
+6. To create hetzner resources and deploy k3s on them, run couple of times if needed (it can **fail 1st time** due to CRDs not being ready):
+```bash
+terraform apply --target=module.kube-hetzner
+```
+7. Wait for k3s to be ready and DNS to be propagated and to configure Gitea, ArgoCD, Dex, run what's left:
+```bash
+terraform apply
+```
 
 
 ## To access cluster
