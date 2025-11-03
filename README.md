@@ -15,7 +15,7 @@ export HCLOUD_TOKEN="your_hcloud_token"
 packer init hcloud-microos-snapshots.pkr.hcl
 packer build hcloud-microos-snapshots.pkr.hcl
 ```
-3. Create `.env` file with credentials based on [.env.example](./play/.env.example) file
+3. Create `.env` file based on [.env.example](./play/.env.example) with snapshot IDs and credentials
 4. Source the `.env` file to load environment variables:
 ```bash
 source .env
